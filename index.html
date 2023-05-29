@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SparkLine</title>
+    <style>
+        body {
+            margin: 0px;
+        }
+
+        .sparkline-container {
+            width: calc(70% - 20px);
+            height: calc(70vh - 20px);
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    </style>
+    <script src="ChartTooltip.js"></script>
+    <script src="Sparkline.js"></script>
+</head>
+
+<body>
+    <div class="sparkline-container">
+        <canvas id="sparkLineCanvas">
+    </div>
+
+    <script>
+        Sparkline('sparkLineCanvas', {
+            type: 'sparkline',
+            hover: 'vertical', // Can be 'none', 'vertical' or 'point'
+            tooltip: {
+                display: true, // Can be set to true or false
+                label: true, // Can be set to true or false
+                theme: 'light', // Light or dark, changes the color of the tooltip.
+                prepend: '$', // Character or symbol to prepend to tooltip values
+                append: '@', // Character or symbol to append to tooltip values
+            },
+            chart: {
+                lineStyle: 'direct', // Can be set to 'direct', 'smooth' or 'waves'
+                dotDisplay: 'hover', // Can be set to 'hover', 'none', or 'all'
+                gradientFill: true, // Set to true to enable gradient fill under the line, or false to disable it.
+            },
+            scales: {
+                y: {
+                    min: -2000, // Sets the minimum value for the y axis.
+                    max: 2000, // Sets the maximum value for the y axis.
+                    suggestedMin: -1000, // Sets a preferred minimum value for the y axis.
+                    suggestedMax: 800, // Sets a preferred maximum value for the y axis.
+                },
+            },
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], // Array of strings for x-axis data point labels
+                // datasets: [[10, -30, 30, 50, 30, 50, 15, 25, 90, 100, 70, 10]],
+                datasets: [[1070, 300, 300, -2100, 300, 500, 150, 250, 900, 1000, 1700, 100]], // Array of arrays containing data points for datasets
+                legends: ['sales', 'income', 'remind'], // Array of strings for dataset legends
+                colors: ['#00ff00'], // Array of strings for dataset line colors in hex color
+            },
+        })
+    </script>
+
+</body>
+
+</html>
