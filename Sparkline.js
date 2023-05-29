@@ -113,11 +113,6 @@ function drawCanvas(event) {
         //GET Y-AXIS TEXT WIDTH
         var leftPadding = ctx.measureText(mergedConfig.scales.y.min).width > ctx.measureText(mergedConfig.scales.y.max).width ? ctx.measureText(mergedConfig.scales.y.min).width + 5 : ctx.measureText(mergedConfig.scales.y.max).width + 5;
         var rightPadding = 20;
-        // for (let idx = 0; idx < mergedConfig.data.legends.length; idx++) {
-        //     if (rightPadding < ctx.measureText(mergedConfig.data.legends[idx]).width + 20) {
-        //         rightPadding = ctx.measureText(mergedConfig.data.legends[idx]).width + 20
-        //     }
-        // }
 
         //GET X-AXIS EACH SPACE
         var labelSpace = ((canvas.width - leftPadding - rightPadding) / (mergedConfig.data.labels.length - 1));
@@ -230,39 +225,6 @@ function drawCanvas(event) {
             ctx.clearRect(0, 0, canvas.width, 20);
             ctx.clearRect(0, canvas.height - 20, canvas.width, 20)
         }
-
-        //DRAW MAIN X-AXIS, Y-AXIS
-        // sparkLineDrawLine(ctx, leftPadding, canvas.height - 20, canvas.width, canvas.height - 20, '#e5e5e5');
-        // sparkLineDrawLine(ctx, leftPadding, 20, leftPadding, canvas.height - 20, '#e5e5e5');
-
-        //DRAW X-AXIS
-        // var sparkLineTextWidthOverflow = false;
-        // for (var idx = 0; idx < mergedConfig.data.labels.length; idx++) {
-        //     if (ctx.measureText(mergedConfig.data.labels[idx]).width > labelSpace) {
-        //         sparkLineTextWidthOverflow = true;
-        //     }
-        // }
-        // for (var idx = 0; idx < mergedConfig.data.labels.length; idx++) {
-        //     if (sparkLineTextWidthOverflow) {
-
-        //         //RESPONSIVE FOR X-AXIS TEXT
-        //         ctx.beginPath()
-        //         ctx.moveTo(labelSpace * idx + leftPadding, canvas.height - 20);
-        //         ctx.lineTo(labelSpace * idx + leftPadding, canvas.height - 15);
-        //         ctx.strokeStyle = 'black'
-        //         ctx.stroke()
-        //     } else {
-        //         var sparkLineTextWidth = ctx.measureText(mergedConfig.data.labels[idx]).width;
-        //         ctx.fillStyle = 'black'
-        //         ctx.fillText(mergedConfig.data.labels[idx], labelSpace * idx + leftPadding - sparkLineTextWidth / 2, canvas.height - 5);
-        //     }
-        // }
-
-        //DRAW Y-AXIS
-        // ctx.beginPath();
-        // ctx.fillStyle = 'black'
-        // ctx.fillText(mergedConfig.scales.y.min, 0, canvas.height - 20);
-        // ctx.fillText(mergedConfig.scales.y.max, 0, 40);
 
         //INSERT LEGENDS TEXT
         for (var idx = 0; idx < mergedConfig.data.legends.length; idx++) {
@@ -456,31 +418,12 @@ function drawCanvas(event) {
                     ctx.closePath();
                     ctx.fill();
 
-                    // ctx.shadowOffsetX = 0;
-                    // ctx.shadowOffsetY = 6;
-                    // ctx.shadowBlur = 20;
-                    // ctx.shadowColor = "rgba(0, 0, 0, 0.19)";
-                    // ctx.beginPath();
-                    // ctx.moveTo(sparkToolTipStartX + borderRadius, sparkToolTipStartY);
-                    // ctx.lineTo(sparkToolTipStartX + width - borderRadius, sparkToolTipStartY);
-                    // ctx.arcTo(sparkToolTipStartX + width, sparkToolTipStartY, sparkToolTipStartX + width, sparkToolTipStartY + borderRadius, borderRadius);
-                    // ctx.lineTo(sparkToolTipStartX + width, sparkToolTipStartY + height - borderRadius);
-                    // ctx.arcTo(
-                    //     sparkToolTipStartX + width,
-                    //     sparkToolTipStartY + height,
-                    //     sparkToolTipStartX + width - borderRadius,
-                    //     sparkToolTipStartY + height,
-                    //     borderRadius
-                    // );
-                    // ctx.lineTo(sparkToolTipStartX + borderRadius, sparkToolTipStartY + height);
-                    // ctx.arcTo(sparkToolTipStartX, sparkToolTipStartY + height, sparkToolTipStartX, sparkToolTipStartY + height - borderRadius, borderRadius);
-                    // ctx.lineTo(sparkToolTipStartX, sparkToolTipStartY + borderRadius);
-                    // ctx.arcTo(sparkToolTipStartX, sparkToolTipStartY, sparkToolTipStartX + borderRadius, sparkToolTipStartY, borderRadius);
-                    // ctx.closePath();
-                    // ctx.fill();
-
                     //DRAW TOOLTIP FORWARD
                     ctx.beginPath();
+
+                    ctx.shadowOffsetX = 0;
+                    ctx.shadowOffsetY = 0;
+                    ctx.shadowBlur = 0;
 
                     if (_sparkToolTipDirect == 0) {
                         ctx.moveTo(_sparkToolTipStartX, _sparkToolTipStartY - 2);
