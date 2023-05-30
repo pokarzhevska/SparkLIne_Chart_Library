@@ -60,7 +60,7 @@ function Sparkline(targetElement, config) {
 
 function sparkLineFirstAnimation() {
     sparkLineFirstAnimationCounter++;
-    if(sparkLineFirstAnimationCounter < 10) {
+    if (sparkLineFirstAnimationCounter < 10) {
         setTimeout(() => {
             var _sparkLineFirstData = [];
             for (var idx = 0; idx < mergedConfig.data.datasets.length; idx++) {
@@ -74,7 +74,7 @@ function sparkLineFirstAnimation() {
             drawCanvas()
             sparkLineFirstAnimation();
         }, 25);
-    } 
+    }
 }
 
 function sparkLineRedrawPerTime() {
@@ -380,28 +380,28 @@ function drawCanvas() {
 
                 //SET START POINT OF TOOLTIP
                 var sparkToolTipStartX = leftPadding + (labelSpace * sparkLineMouseIndex) - (sparkLineToolTipTextWidth / 2);//NORMAL CASE, SET INIT X
-                var sparkToolTipStartY = sparkLineToolTipTopPoint - sparkLineToolTipTextHeight - 12;//NORMAL CASE, SET INIT Y
+                var sparkToolTipStartY = sparkLineToolTipTopPoint - sparkLineToolTipTextHeight - 14;//NORMAL CASE, SET INIT Y
                 var _sparkToolTipStartX = leftPadding + (labelSpace * sparkLineMouseIndex); //NORMAL CASE, SET INIT FORWARD X
                 var _sparkToolTipStartY = sparkLineToolTipTopPoint - 4 //NORMAL CASE, SET INIT FORWARD Y
                 var _sparkToolTipDirect = 0; //TOP 0, LEFT 1, RIGHT 2
                 if (sparkLineToolTipTopPoint < sparkLineToolTipTextHeight + 12) {//ESCAPE TOP CASE
-                    sparkToolTipStartY += sparkLineToolTipTextHeight + 12;
+                    sparkToolTipStartY += sparkLineToolTipTextHeight + 14;
                     if (leftPadding + labelSpace * sparkLineMouseIndex < sparkLineToolTipTextWidth) {//ESCAPE LEFT CASE
-                        sparkToolTipStartX += sparkLineToolTipTextWidth / 2 + 12;
+                        sparkToolTipStartX += sparkLineToolTipTextWidth / 2 + 14;
                         _sparkToolTipDirect = 2;
                     } else {
-                        sparkToolTipStartX += -sparkLineToolTipTextWidth / 2 - 12;
+                        sparkToolTipStartX += -sparkLineToolTipTextWidth / 2 - 14;
                         _sparkToolTipDirect = 1;
                     }
                 } else {
                     if (leftPadding + labelSpace * sparkLineMouseIndex < sparkLineToolTipTextWidth / 2) {//ESCAPE LEFT CASE
-                        sparkToolTipStartY += sparkLineToolTipTextHeight + 12;
-                        sparkToolTipStartX += sparkLineToolTipTextWidth / 2 + 12;
+                        sparkToolTipStartY += sparkLineToolTipTextHeight + 14;
+                        sparkToolTipStartX += sparkLineToolTipTextWidth / 2 + 14;
                         _sparkToolTipDirect = 2;
                     }
                     if (canvas.width - labelSpace * sparkLineMouseIndex - leftPadding < sparkLineToolTipTextWidth / 2) {//ESCAPE RIGHT CASE
-                        sparkToolTipStartY += sparkLineToolTipTextHeight + 12;
-                        sparkToolTipStartX += -sparkLineToolTipTextWidth / 2 - 12;
+                        sparkToolTipStartY += sparkLineToolTipTextHeight + 14;
+                        sparkToolTipStartX += -sparkLineToolTipTextWidth / 2 - 14;
                         _sparkToolTipDirect = 1;
                     }
                 }
@@ -417,10 +417,33 @@ function drawCanvas() {
 
                 //DRAW TOOLTIP MAIN AREA
                 if (sparkLineToolTipTopPoint != canvas.height) {
-                    ctx.shadowOffsetX = -4;
-                    ctx.shadowOffsetY = 10;
-                    ctx.shadowBlur = 10;
-                    ctx.shadowColor = "rgba(0, 0, 0, 0.2)";
+                    ctx.shadowOffsetX = 0;
+                    ctx.shadowOffsetY = 12;
+                    ctx.shadowBlur = 16;
+                    ctx.shadowColor = 'rgba(16, 24, 40, 0.08)';
+                    ctx.beginPath();
+                    ctx.moveTo(sparkToolTipStartX + borderRadius, sparkToolTipStartY);
+                    ctx.lineTo(sparkToolTipStartX + width - borderRadius, sparkToolTipStartY);
+                    ctx.arcTo(sparkToolTipStartX + width, sparkToolTipStartY, sparkToolTipStartX + width, sparkToolTipStartY + borderRadius, borderRadius);
+                    ctx.lineTo(sparkToolTipStartX + width, sparkToolTipStartY + height - borderRadius);
+                    ctx.arcTo(
+                        sparkToolTipStartX + width,
+                        sparkToolTipStartY + height,
+                        sparkToolTipStartX + width - borderRadius,
+                        sparkToolTipStartY + height,
+                        borderRadius
+                    );
+                    ctx.lineTo(sparkToolTipStartX + borderRadius, sparkToolTipStartY + height);
+                    ctx.arcTo(sparkToolTipStartX, sparkToolTipStartY + height, sparkToolTipStartX, sparkToolTipStartY + height - borderRadius, borderRadius);
+                    ctx.lineTo(sparkToolTipStartX, sparkToolTipStartY + borderRadius);
+                    ctx.arcTo(sparkToolTipStartX, sparkToolTipStartY, sparkToolTipStartX + borderRadius, sparkToolTipStartY, borderRadius);
+                    ctx.closePath();
+                    ctx.fill();
+
+                    ctx.shadowOffsetX = 0;
+                    ctx.shadowOffsetY = 4;
+                    ctx.shadowBlur = 6;
+                    ctx.shadowColor = 'rgba(16, 24, 40, 0.03)';
                     ctx.beginPath();
                     ctx.moveTo(sparkToolTipStartX + borderRadius, sparkToolTipStartY);
                     ctx.lineTo(sparkToolTipStartX + width - borderRadius, sparkToolTipStartY);
@@ -448,17 +471,17 @@ function drawCanvas() {
                     ctx.shadowBlur = 0;
 
                     if (_sparkToolTipDirect == 0) {
-                        ctx.moveTo(_sparkToolTipStartX, _sparkToolTipStartY - 2);
-                        ctx.lineTo(_sparkToolTipStartX - 9, _sparkToolTipStartY - 13);
-                        ctx.lineTo(_sparkToolTipStartX + 9, _sparkToolTipStartY - 13);
+                        ctx.moveTo(_sparkToolTipStartX, _sparkToolTipStartY - 4);
+                        ctx.lineTo(_sparkToolTipStartX - 6, _sparkToolTipStartY - 10);
+                        ctx.lineTo(_sparkToolTipStartX + 6, _sparkToolTipStartY - 10);
                     } else if (_sparkToolTipDirect == 1) {
-                        ctx.moveTo(_sparkToolTipStartX - 5, _sparkToolTipStartY + 20);
-                        ctx.lineTo(_sparkToolTipStartX - 16, _sparkToolTipStartY + 13);
-                        ctx.lineTo(_sparkToolTipStartX - 16, _sparkToolTipStartY + 27);
+                        ctx.moveTo(_sparkToolTipStartX - 8, _sparkToolTipStartY + 20);
+                        ctx.lineTo(_sparkToolTipStartX - 14, _sparkToolTipStartY + 14);
+                        ctx.lineTo(_sparkToolTipStartX - 14, _sparkToolTipStartY + 26);
                     } else {
-                        ctx.moveTo(_sparkToolTipStartX + 5, _sparkToolTipStartY + 20);
-                        ctx.lineTo(_sparkToolTipStartX + 16, _sparkToolTipStartY + 13);
-                        ctx.lineTo(_sparkToolTipStartX + 16, _sparkToolTipStartY + 27);
+                        ctx.moveTo(_sparkToolTipStartX + 8, _sparkToolTipStartY + 20);
+                        ctx.lineTo(_sparkToolTipStartX + 14, _sparkToolTipStartY + 14);
+                        ctx.lineTo(_sparkToolTipStartX + 14, _sparkToolTipStartY + 26);
                     }
                     ctx.closePath();
                     ctx.fill();
@@ -511,7 +534,7 @@ function drawCanvas() {
     }
 
     //MOUSE OUT EVENT
-    canvas.addEventListener('mouseout', function() {
+    canvas.addEventListener('mouseout', function () {
         sparkLineAnimationArray = [];
     })
 
